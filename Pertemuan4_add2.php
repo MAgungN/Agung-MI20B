@@ -3,7 +3,6 @@ $con = new mysqli("localhost", "root", "", "db_surat_agung");
 
 $tgl = date ('d F Y');
 
-$query = mysqli_query($con, 'SELECT * FROM tbl_surat')
 
 ?>
 <!DOCTYPE html>
@@ -23,39 +22,39 @@ $query = mysqli_query($con, 'SELECT * FROM tbl_surat')
         <div class="card">
         <h2 class="text-center">TAMBAH SURAT</h2>
         <div class="card-body">
-        <form class="row g-3">
+        <form class="row g-3" action="add.php" method="post">
   <div class="col-md-6">
-    <label for="inputEmail4" class="form-label">No Surat</label>
-    <input type="email" class="form-control" id="noSurat" name="no_surat">
+    <label for="noSurat" class="form-label">No Surat</label>
+    <input type="text" class="form-control" id="noSurat" name="noSurat">
   </div>
   <div class="col-md-6">
-    <label for="inputPassword4" class="form-label">Jenis Surat</label>
-    <select id="jenisSurat" class="form-select" name="jenis_surat">
+    <label for="jenisSurat" class="form-label">Jenis Surat</label>
+    <select id="jenisSurat" class="form-select" name="jenisSurat">
       <option selected>Silahkan Pilih</option>
-      <option>Surat Keputusan</option>
-      <option>Surat Pernyataan</option>
-      <option>Surat Penyimpanan</option>
+      <option value=1>Surat Keputusan</option>
+      <option value=2>Surat Pernyataan</option>
+      <option value=3>Surat Penyimpanan</option>
     </select>
   </div>
   <div class="col-12">
-    <label for="inputAddress" class="form-label">Tanggal Surat</label>
-    <input type="date" class="form-control" id="tglSurat" name="tgl_surat">
+    <label for="tglSurat" class="form-label">Tanggal Surat</label>
+    <input type="date" class="form-control" id="tglSurat" name="tglSurat">
   </div>
   <div class="col-12">
-    <label for="inputAddress2" class="form-label">TTD Surat</label>
-    <input type="text" class="form-control" id="ttdSurat" name="ttd_surat">
+    <label for="ttdSurat" class="form-label">TTD Surat</label>
+    <input type="text" class="form-control" id="ttdSurat" name="ttdSurat">
   </div>
   <div class="col-md-6">
-    <label for="inputCity" class="form-label">TTD Menyetujui</label>
-    <input type="text" class="form-control" id="ttdMenyetujui" name="ttd_menyetujui">
+    <label for="ttdMenyetujui" class="form-label">TTD Menyetujui</label>
+    <input type="text" class="form-control" id="ttdMenyetujui" name="ttdMenyetujui">
   </div>
-  <div class="col-md-6">
-    <label for="inputCity" class="form-label">TTD Mengetahui</label>
-    <input type="text" class="form-control" id="ttdMengetahui" name="ttd_mengetahui">
+  <div class="col-md-12">
+    <label for="ttdMengetahui" class="form-label">TTD Mengetahui</label>
+    <input type="text" class="form-control" id="ttdMengetahui" name="ttdMengetahui">
   </div>
 
   <div class="col-12">
-    <button type="submit" class="btn btn-primary">Add</button>
+    <button type="submit" class="btn btn-primary" name="submit">Add</button>
     <button type="submit" class="btn btn-danger">Cancel</button>
   </div>
 </form>
@@ -74,8 +73,8 @@ if(isset($_POST['submit'])) {
     $ttd_mengetahui = $_POST['ttdMengetahui'];
     $ttd_menyetujui = $_POST['ttdMenyetujui'];
 
-    $result = mysqli_query($mysqli, "INSERT INTO tbl_surat (id, no_surat, jenis_surat, ttd_surat, ttd_mengetahui, ttd_menyetujui)
-                            VALUES('','$no_surat','$jenis_surat','$tgl_surat','$tgl_surat', '$ttd_mengetahui',
+    $result = mysqli_query($con, "INSERT INTO `tbl_surat` (`id`, `no_surat`, `jenis_surat`, `tgl_surat`, `ttd_surat`, `ttd_mengetahui`, `ttd_menyetujui`)
+     VALUES('','$no_surat','$jenis_surat','$tgl_surat','$ttd_surat', '$ttd_mengetahui',
                             '$ttd_menyetujui')");
 
     echo "User added successfully. <a href='view.php'>List Surat</a>";
